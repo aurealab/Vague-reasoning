@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Dimensions
+        </title>
+
+        <style>
+            html{
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: cornflowerblue;
+            }
+
+            header.input{
+                font-size: 50px;
+                font-weight: bold;
+                text-align: center;
+                padding-bottom: 15mm;
+            }
+
+            header.Error{
+                font-size: 50px;
+                font-weight: bold;
+                text-align: center;
+                padding-bottom: 15mm;
+                color: red;
+            }
+
+            div.box{
+                width: 55%;
+                margin: auto;
+                padding: 10mm;
+                border-radius: 5mm;
+                border: 5px solid blue;
+                background-color: white;
+            }
+
+            div.button{
+                margin-top: 1rem;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            div.input{
+                margin-top: 1rem;
+                width: fit-content;
+                text-align: left;
+            }
+            
+            ul{
+                position: relative;
+                margin-left: -11mm;
+                list-style-type: none;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        {% if Error %}
+        <header class="Error">
+            {% if ID=='IOError' %}
+            Warning! Not in language symbol found. Retry.
+            {% elif ID=='IndentationError' %}
+            Warning! Not closed bracket found. Retry.
+            {% elif ID=='SyntaxError' %}
+            Warning! Syntax error. Retry.
+            {% elif ID=='ImportError' %}
+            Warning! A variable starting with a number was found. Retry.
+            {% elif ID=='NameError' %} 
+            Warning! Some parameters are not correct. Retry
+            {% elif ID=='PermissionError' %}
+            Warning! Parameters name are not valid. Retry.
+            {% elif ID=='ArgumentError' %} 
+            Warning! Wrong query input. Retry.
+            {% elif ID=='TypeError' %} 
+            Warning! Not valid precision. Retry. 
+            {% else %} 
+            Warning! One or more input not given. Retry.
+            {% endif %}
+        </header>
+
+        {% else %} 
+        <header class="input">
+            Input phase
+        </header>        
+
+        {% endif %} 
+
+        <article>
+            <div class="box">
+                <form action="/table", method="POST">
+                    <table border="1">
+                        {% for i in range(row) %} 
+                        <tr>
+                            {% if i==0 %} 
+                                <td>name propriety</td>
+                                
+                                {% for j in range(col) %}  
+                                    <td> <input type="text" name="propriety{{j}}" value="propriety{{j}}"> </td>
+                                {% endfor %}
+                            
+                            {% else %} 
+                                <td> <input type="text" name="name{{i}}" value="Object {{i}}"/> </td>
+        
+                                {% for j in range(col) %}  
+                                    <td> <input type="number" name="entry{{i}}{{j}}"> </td>
+                                {% endfor %} 
+        
+                            {% endif %}
+                            
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td> Best choice: </td>
+                            {% for j in range(col) %} 
+                                <td> <input type="radio" name="choice{{j}}" value="max"> Max <input type="radio" name="choice{{j}}" value="min"> Min </td> 
+                            {% endfor %}
+                        </tr>    
+                    </table>
+                    
+                    <div class="input">
+                        Enter query: <input type="text" name="condition" /> <br />
+                        <p>
+                            Choose mode:
+                            <ul>
+                                <li> <input type="radio" name="mode" value="1" /> Satisfiability </li>
+                                <li> <input type="radio" name="mode" value="2" /> Truth value </li>
+                            </ul>
+                        </p>
+                    </div>
+                    Enter precision ("inf" for exact computing): 1/ <input type="text" name="den" />
+                    
+                    <div class="button">
+                        <input type="submit" value="Confirm">
+                    </div>
+                </form>
+        </article>
+    </body>
+
+</html>

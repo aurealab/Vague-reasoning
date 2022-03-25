@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Results
+        </title>
+
+        <style>
+            
+            html{
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: cornflowerblue;
+            }
+
+            header{
+                font-size: 50px;
+                font-weight: bold;
+                text-align: center;
+                padding-bottom: 15mm;
+            }
+
+            div.debug{
+                font-size: 20px;
+                font-weight: 200;
+            }
+
+            article{
+                margin-right: auto;
+                margin-left: auto;
+                width: fit-content;
+                padding: 15mm;
+                border-radius: 5mm;
+                border: 5px solid blue;
+                background-color: white;
+            }
+
+
+            div.button{
+                margin-top: 1rem;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            div.output{
+                margin-top: 1rem;
+            }
+            
+            ul{
+                margin-left: -11mm;
+                list-style-type: none;
+            }
+
+            div.LP{
+                font-size: 40px;
+            }
+
+            div.D{
+                font-size: 20px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <header>
+            McNaughton's function:
+        </header>
+
+        <article>
+            <div class="debug">
+                Formula interpretation: <br />
+                {{formula}}
+            </div>
+    
+            <div class="output">
+                    <ul>
+                        {% for i in range(N) %} 
+                        <li>
+                            <div class="LP"> {{output[i]}} </div>
+                            {% if domains[i]!="otherwise" and domains[i]!="everywhere" %}
+                            <div class="D"> if {{domains[i]|safe}} </div> 
+                            {% else %} 
+                            <div class="D"> {{domains[i]}} </div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+
+            <div class="button">
+                <form action="/">
+                    <input type="submit" value="Go back to home page" />
+                </form>
+            </div>
+    
+        </article>
+
+    </body>
+</html>
